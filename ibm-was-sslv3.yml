@@ -17,6 +17,7 @@
         chdir: C:\Program Files\IBM\WebSphere\AppServer\profiles\AppSrv01\bin
         executable: cmd
         elevate: yes
+      register: output
 
     - name: Restarting IBMHTTPServerv9.0 service
       ansible.windows.win_service:
