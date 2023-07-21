@@ -12,7 +12,7 @@
 
     - name: Run PowerShell script to get Tomcat path
       win_shell: |
-                & 'C:\IBM-WAS\Port-Path.ps1' -PortNumber '{{ PortNumber }}'
+                & 'C:\IBM-WAS\Port-Path.ps1' -PortNumber 8080
       register: base_path
 
     - name: Show script output
@@ -21,9 +21,9 @@
 
     - name: Add content
       lineinfile:
-        path: "{{ base_path.stdout_lines[0] }}"
+        path: '{{ base_path.stdout_lines[0] }}'
         line: |
-              <filter>
+          <filter>
             <filter-name>httpHeaderSecurity</filter-name>
             <filter-class>org.apache.catalina.filters.HttpHeaderSecurityFilter</filter-class>
             <async-supported>true</async-supported>
@@ -54,13 +54,13 @@
             <init-param>
               <param-name>xssProtectionEnabled</param-name>
               <param-value>true</param-value>
-            </init-param>
-            </filter>
-            <filter-mapping>
+            </init-param> 
+          </filter>
+          <filter-mapping>
                 <filter-name>httpHeaderSecurity</filter-name>
                 <url-pattern>/*</url-pattern>
                 <dispatcher>REQUEST</dispatcher>
-            </filter-mapping>
+          </filter-mapping>
         insertafter: '</description>'
 
     - name: Removing script file
