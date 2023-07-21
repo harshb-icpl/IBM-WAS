@@ -20,7 +20,7 @@
         var: base_path.stdout_lines
 
     - name: Add content
-      community.windows.win_lineinfile:
+      lineinfile:
         path: "C:"
         line: |
           <filter>
