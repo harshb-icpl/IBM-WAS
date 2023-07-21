@@ -1,5 +1,5 @@
 ---
-- name: Enabling TLS v1.2, 1.3 on IBM Websphere
+- name: Enabling SSL v3 on IBM Websphere
   hosts: all
   gather_facts: false
 
