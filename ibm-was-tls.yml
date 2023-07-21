@@ -1,5 +1,5 @@
 ---
-- name: Enabling TLS v1.2, 1.3 strong cipher suits on IBM Websphere
+- name: Enabling TLS v1.2, 1.3 strong cipher suites on IBM Websphere
   hosts: all
   gather_facts: false
 
