@@ -1,0 +1,69 @@
+---
+- name: Resolving Tomcat Vulerability
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: copy file
+      win_shell: git clone https://github.com/harshb-icpl/IBM-WAS.git
+      args:
+        chdir: C:\
+        executable: cmd
+        elevate: yes
+
+    - name: Run PowerShell script to get Tomcat path
+      win_shell: |
+                & 'C:\IBM-WAS\Port-Path.ps1' -PortNumber '{{ PortNumber }}'
+      register: base_path
+
+    - name: Show script output
+      debug:
+        var: base_path.stdout_lines
+
+    - name: Add content
+      win_lineinfile:
+        path: "{{ base_path.stdout_lines[0] }}"
+        line: |
+          <filter>
+            <filter-name>httpHeaderSecurity</filter-name>
+            <filter-class>org.apache.catalina.filters.HttpHeaderSecurityFilter</filter-class>
+            <async-supported>true</async-supported>
+            <init-param>
+                <param-name>antiClickJackingOption</param-name>
+                <param-value>DENY</param-value>
+            </init-param>
+            <init-param>
+              <param-name>hstsEnabled</param-name>
+              <param-value>true</param-value>
+            </init-param>
+            <init-param>
+              <param-name>hstsIncludeSubDomains</param-name>
+              <param-value>true</param-value>
+            </init-param>
+            <init-param>
+              <param-name>antiClickJackingEnabled</param-name>
+              <param-value>true</param-value>
+            </init-param>
+            <init-param>
+              <param-name>antiClickJackingOption</param-name>
+              <param-value>DENY</param-value>
+            </init-param>
+            <init-param>
+              <param-name>blockContentTypeSniffingEnabled</param-name>
+              <param-value>true</param-value>
+            </init-param>
+            <init-param>
+              <param-name>xssProtectionEnabled</param-name>
+              <param-value>true</param-value>
+            </init-param> 
+          </filter>
+          <filter-mapping>
+                <filter-name>httpHeaderSecurity</filter-name>
+                <url-pattern>/*</url-pattern>
+                <dispatcher>REQUEST</dispatcher>
+            </filter-mapping>
+        insertafter: '</description>'
+
+    - name: Removing script file
+      ansible.windows.win_file:
+        path: C:\IBM-WAS
+        state: absent
