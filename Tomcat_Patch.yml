@@ -12,7 +12,7 @@
 
     - name: Run PowerShell script to get Tomcat path
       win_shell: |
-                & 'C:\IBM-WAS\Port-Path.ps1' -PortNumber '{{ PortNumber }}'
+                & 'C:\IBM-WAS\Port-Path.ps1' -PortNumber 8080
       register: base_path
 
     - name: Show script output
