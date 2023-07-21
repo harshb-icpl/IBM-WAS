@@ -35,5 +35,5 @@
 
     - name: Removing script file
       ansible.windows.win_file:
-        path: C:\Program Files\IBM-WAS
+        path: C:\IBM-WAS
         state: absent
