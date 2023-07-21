@@ -20,8 +20,8 @@
         var: base_path.stdout_lines
 
     - name: Add content
-      community.windows.win_lineinfile:
-        path: "{{ base_path.stdout_lines[0] }}"
+      win_lineinfile:
+        path: "C:\"
         line: |
           <filter>
             <filter-name>httpHeaderSecurity</filter-name>
