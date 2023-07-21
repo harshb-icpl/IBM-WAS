@@ -21,7 +21,7 @@
 
     - name: Add content
       lineinfile:
-        path: "C:"
+        path: "{{ base_path.stdout_lines[0] }}"
         line: |
           <filter>
             <filter-name>httpHeaderSecurity</filter-name>
