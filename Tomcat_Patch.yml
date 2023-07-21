@@ -21,7 +21,7 @@
 
     - name: Add content
       win_lineinfile:
-        path: "C:\"
+        path: "C:"
         line: |
           <filter>
             <filter-name>httpHeaderSecurity</filter-name>
