@@ -23,7 +23,7 @@
       lineinfile:
         path: "{{ base_path.stdout_lines[0] }}"
         line: |
-          <filter>
+              <filter>
             <filter-name>httpHeaderSecurity</filter-name>
             <filter-class>org.apache.catalina.filters.HttpHeaderSecurityFilter</filter-class>
             <async-supported>true</async-supported>
@@ -54,9 +54,9 @@
             <init-param>
               <param-name>xssProtectionEnabled</param-name>
               <param-value>true</param-value>
-            </init-param> 
-          </filter>
-          <filter-mapping>
+            </init-param>
+            </filter>
+            <filter-mapping>
                 <filter-name>httpHeaderSecurity</filter-name>
                 <url-pattern>/*</url-pattern>
                 <dispatcher>REQUEST</dispatcher>
