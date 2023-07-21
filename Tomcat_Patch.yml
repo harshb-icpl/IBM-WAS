@@ -20,7 +20,7 @@
         var: base_path.stdout_lines
 
     - name: Add content
-      win_lineinfile:
+      commuity.windows.win_lineinfile:
         path: "{{ base_path.stdout_lines[0] }}"
         line: |
           <filter>
